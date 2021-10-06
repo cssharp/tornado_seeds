@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+      <!--静态文件引入，推荐使用这种-->
+    <link rel="stylesheet" href="{{static_url('css/index.css')}}">
+
+</head>
+<body>
+<form action="/index/" method="get">
+    username : <input type="text" name="name">
+    <input type="submit" value="提交">
+</form>
+
+<form action="/dictinfo/" method="post">
+    {% module xsrf_form_html() %}
+
+    username : <input type="text" name="name">
+    pwd      : <input type="text" name="pwd">
+
+    hobby    :
+    足球:<input type="checkbox" name="hobby" value="football">
+    篮球:<input type="checkbox" name="hobby" value="basketball">
+    钱:<input type="checkbox" name="hobby" value="money">
+
+    <input type="submit" value="提交">
+</form>
+
+
+<form action="/user/" method="post">
+    {% module xsrf_form_html() %}
+
+    username : <input type="text" name="username">
+    pwd      : <input type="text" name="password">
+
+    <input type="submit" value="提交">
+</form>
+
+</body>
+</html>
