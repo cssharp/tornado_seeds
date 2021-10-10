@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+
+      <!--静态文件引入，推荐使用这种-->
+    <link rel="stylesheet" href="{{static_url('css/index.css')}}">
+</head>
+<body>
+编号：{{user.id}}
+用户名：{{user.username}}
+密码：{{user.password}}
+创建时间：{{user.creatime}}
+</body>
+</html>

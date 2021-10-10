@@ -13,13 +13,14 @@ from config import settings
 from tornado import gen
 from connect import session
 from models.User import User
+import logging
 
 
 # 视图层
 class IndexHandler(tornado.web.RequestHandler):
     # 接受get请求
     def get(self):
-        print('get。。。。')
+        logging.warning('get。。。。')
         # self.write('hello world。。')   # 相当于Django框架中的HttpResponse
         self.render('index.html')
 
@@ -30,13 +31,13 @@ class IndexHandler(tornado.web.RequestHandler):
 
 class DetailHandler(tornado.web.RequestHandler):
     def get(self, id, *args, **kwargs):
-        print(id)          # 接受无名传参
+        logging.warning(id)          # 接受无名传参
         self.write(id)     # 响应回去
 
 
 class DictinfoHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        print(self.request)
+        logging.warning(self.request)
         info = {
             "name": 'lxxx',
             "age": 18
@@ -67,7 +68,7 @@ class WenjianHandler(tornado.web.RequestHandler):
 
     def post(self, *args, **kwargs):
         filesDict = self.request.files  # 接收文件数据
-        print(filesDict)  # 打印接收到文件数据
+        logging.warning(filesDict)  # 打印接收到文件数据
 
         # 下载文件
         for key, val in filesDict.items():
@@ -82,7 +83,7 @@ class StudentHandler(tornado.web.RequestHandler):
     # 请求函数
     @gen.coroutine  # 协程方式获取异步处理结果
     def get(self, *args, **kwargs):
-        print('协程方式获取异步处理结果')
+        logging.warning('协程方式获取异步处理结果')
         url = "http://www.baidu.com/"
         client = AsyncHTTPClient()  # 异步客户端
         res = yield client.fetch(url)  # 发起异步请求,执行回调函数
@@ -98,10 +99,10 @@ class StudentHandler(tornado.web.RequestHandler):
 class UserHandler(tornado.web.RequestHandler):
     def get(self, id, *args, **kwargs):
         userobj = session.query(User).filter(User.id==id).first()
-        print(userobj)
-        print(id)          # 接受有名传参
+        logging.warning(userobj)
+        logging.warning(id)          # 接受有名传参
         if userobj:
-            self.write(userobj.username)     # 响应回去
+            self.render('user.html', user=userobj)     # 响应回去
         else:
             self.write('没有找到')
 
