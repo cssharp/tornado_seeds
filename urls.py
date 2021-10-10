@@ -7,7 +7,7 @@
 # Time    : 20:57
 #路由文件
 from tornado.web import Application
-from views.index import IndexHandler, DetailHandler, DictinfoHandler, WenjianHandler, StudentHandler, UserHandler
+from views.index import IndexHandler, DetailHandler, DictinfoHandler, WenjianHandler, StudentHandler, UserHandler, BaseHandler
 from config import settings
 
 
@@ -24,6 +24,7 @@ class App(Application):
             (r'/stu/', StudentHandler),
             (r'/user/', UserHandler),
             (r'/user/(?P<id>[0-9]+)', UserHandler),
+            (r".*", BaseHandler),
         ]
 
         super(App, self).__init__(url, **settings)

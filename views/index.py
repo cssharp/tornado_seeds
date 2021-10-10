@@ -55,7 +55,6 @@ class DictinfoHandler(tornado.web.RequestHandler):
             'pwd': pwd,
             'hobby': hobby
         }
-
         self.set_header('nick', 'cai') # 设置响应头header头信息  (*****)
         self.set_status(200, '收到了')  # 设置响应的状态码以及状态的原因
         self.write(info)
@@ -121,4 +120,18 @@ class UserHandler(tornado.web.RequestHandler):
 
     def delete(self, *args, **kwargs):
         pass
+
+
+class BaseHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write_error(404)
+
+    def write_error(self, status_code, **kwargs):
+        if status_code == 404:
+            self.render('404.html')
+        elif status_code == 500:
+            self.render('500.html')
+        else:
+            self.write('error:' + str(status_code))
+
 
